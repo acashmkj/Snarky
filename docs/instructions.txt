@@ -12,15 +12,15 @@ for testing
 - run ./build.sh to build in release mode
 
 - To start a new docker session for ZoKrates, goto ~/crypto/ZoKrates and run
-> docker run -ti --mount src=/home/puneet,target=/home/puneet,type=bind zokrates
-The above will also mount /home/puneet inside docker container.
+> docker run -ti --mount src=/home/valkyrie,target=/home/valkyrie,type=bind zokrates
+The above will also mount /home/valkyrie inside docker container.
 
 - To attach to existing docker
-> docker start -a <container-id> 
+> docker start -a <container-id>
 > docker ps -a -l
 
-Inside docker, after mounting /home/puneet
-- copy the 'zokrates' executable from ~/ZoKrates/target/release to /home/puneet/crypto/zksnark/tools  
+Inside docker, after mounting /home/valkyrie
+- copy the 'zokrates' executable from ~/ZoKrates/target/release to /home/valkyrie/crypto/zksnark/tools
 
 - copy the libsnark.so to same location
 ====================================
@@ -28,9 +28,9 @@ To build all components:
 
 - Copy the libs into /tools dir as given above.
 - export LD_LIBRARY_PATH to /tools dir.
-- chown the exe files to 'puneet'
-- create 'build' dir 
-- cd build 
+- chown the exe files to 'valkyrie'
+- create 'build' dir
+- cd build
 - Set appropriate witness values in compile.sh
 > ../compile.sh
 ====================================
@@ -54,8 +54,8 @@ field_limit = 218882428718392752222464057452572750885483644004160343436982041865
 field_limit / (target * max_span) == 167.8
 ==================
 Gas consumption:
-Storage of group of 2 block headers: 160370 
-Verification of SNARK proof:  1862290 
+Storage of group of 2 block headers: 160370
+Verification of SNARK proof:  1862290
 Number of constraints for verify_multiple_headers.code: 7693331
 Number of constraints for verify_header.code: 2397112
 =====
