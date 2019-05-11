@@ -1,0 +1,13 @@
+// MULTIPLE        
+
+// Is 'a' multiple of 'b'. Assuming 'a' is block number.  Need to hard code
+// 'for' loop here.  Returns 1 if multiple 0 otherwise.
+
+def main(a, b):
+    y = 0
+    for i in 0..300 do  // Approx. 2 years from now
+        x = if i * b == a then 1 else 0 fi
+        y = y + x
+    endfor
+
+    return y

@@ -1,0 +1,61 @@
+Installation:
+-------------
+- Install ganache-cli and run it on a separate terminal.  This will be used
+for testing
+
+> pip install bitstring
+
+- Build fresh as per build instructions at ZoKrates as https://github.com/JacobEberhardt/ZoKrates
+- When connected to docker, change the following line in build.sh to build in release mode:
+  'cargo build --release'
+- IMPORTANT: first modify Docerfile to include --force-yes flat in apt-get command
+- run ./build.sh to build in release mode
+
+- To start a new docker session for ZoKrates, goto ~/crypto/ZoKrates and run
+> docker run -ti --mount src=/home/puneet,target=/home/puneet,type=bind zokrates
+The above will also mount /home/puneet inside docker container.
+
+- To attach to existing docker
+> docker start -a <container-id> 
+> docker ps -a -l
+
+Inside docker, after mounting /home/puneet
+- copy the 'zokrates' executable from ~/ZoKrates/target/release to /home/puneet/crypto/zksnark/tools  
+
+- copy the libsnark.so to same location
+====================================
+To build all components:
+
+- Copy the libs into /tools dir as given above.
+- export LD_LIBRARY_PATH to /tools dir.
+- chown the exe files to 'puneet'
+- create 'build' dir 
+- cd build 
+- Set appropriate witness values in compile.sh
+> ../compile.sh
+====================================
+Number of inputs should be kept low - each input increases gas by huge amount. Make most inputs private
+====================================
+In compile.sh the compiler output is redirected to /dev/null otherwise the
+console print process hogs too much CPU.
+====================================
+Note on Prime fields division operation:
+https://github.com/JacobEberhardt/ZoKrates/issues/27
+====================================
+Max number, prime used for finite field arithmetic in ZoKrates
+21888242871839275222246405745257275088548364400416034343698204186575808495617
+===========
+Target multiplication - check whether it exceeds field limit
+Example target from early headers (target expected to be higher earlier)
+target = 26959535291011309493156476344723991336010898738574164086137773096960
+max_span = 4838400
+field_limit = 21888242871839275222246405745257275088548364400416034343698204186575808495617
+
+field_limit / (target * max_span) == 167.8
+==================
+Gas consumption:
+Storage of group of 2 block headers: 160370 
+Verification of SNARK proof:  1862290 
+Number of constraints for verify_multiple_headers.code: 7693331
+Number of constraints for verify_header.code: 2397112
+=====

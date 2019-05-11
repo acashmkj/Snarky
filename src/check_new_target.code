@@ -1,0 +1,34 @@
+// CHECK_NEW_TARGET
+
+//@dev Check if new target value for the current block given previous blocks
+//data is as computed correctly.  This applies to block number that is multiple
+// of 2016. If not, this function just bypasses the check.  'flag' specifies
+// if the block is multiple of 2016.
+//@param prevTime Timestamp value in seconds of previous block
+//@param startTime Timestamp value in seconds of block where difficulty was adjusted
+//@param prevTarget Target value computed from nbits of previous block
+//@param flag 1 if block number is multiple of 2016, 0 otherwise
+
+def main(prevTime, startTime, currTarget, prevTarget, flag):
+    TARGETSPAN =  14 * 24 * 60 * 60  // 2 weeks
+    TARGETSPANDIV4 =  TARGETSPAN / 4
+    TARGETSPANMUL4 =  TARGETSPAN * 4
+    UNROUNDEDMAXTARGET = 2**224 - 1
+
+    actualSpan = prevTime - startTime
+    atualspan = if actualSpan < TARGETSPANDIV4 then TARGETSPANDIV4 else actualSpan fi
+    atualspan = if TARGETSPANMUL4 < actualSpan then TARGETSPANMUL4 else actualSpan fi
+
+    // It can be verified that the mulitplications below will not exceed the
+    // field limit
+
+    //Equvalent implmentation of:
+    // currTarget  = (actualSpan * prevTarget) / TARGETSPAN
+    a = currTarget * TARGETSPAN * flag
+    b = actualSpan * prevTarget * flag
+    a == b
+
+    // TODO: Do we really need to check for the condition below?
+    //currTarget = if UNROUNDEDMAXTARGET  < currTarget then UNROUNDEDMAXTARGET else currTarget fi
+
+    return 1
