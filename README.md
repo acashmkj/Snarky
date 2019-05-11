@@ -78,38 +78,45 @@ If these verifications are successful, all the block headers stored onchain corr
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes
 
 ### Installing
-Instructions here have been tried on Ubuntu 16.04.  
 
-Clone this repo.
+```
+git clone https://github.com/acashmkj/Snarky.git
+```
 
-Install the following:
-* `python 3.5`
-* `solc` (solidity compiler)
-* `ganache-cli` (For Ethereum local testing)
-* `zokrates` (as given  at https://github.com/JacobEberhardt/ZoKrates). Copy the binary `zokrates` from docker to `./tools`.
+Make sure you have the following:
 
-From inside Python's virtual environment install following modules using `pip`:
-* `bitstring`
-* `hexbytes`
+```
+python 3
+solc (solidity compiler)
+ganache-cli (For Ethereum local testing)
+zokrates (as given  at https://github.com/JacobEberhardt/ZoKrates). Copy the binary zokrates from docker to ./tools .
+```
 
-To build all modules inside root `Snarky` dir:
-* Set `solc` path in `Makefile`
-* `$ mkdir build`
-* `$ cd build`
-* `$ make -f ../Makefile`
+Install these using pip:
 
-This could take several hours.  
+```
+bitstring
+hexbytes
+```
+
+To build all modules inside root ***Snarky***:
+
+* Set solc path in Makefile
+
+* mkdir build
+
+* cd build
+
+* make -f ../Makefile
+
+***This step takes time.***
 
 ### Running the tests
-* Run `ganache-cli` in a separate terminal
-* `$ cd test`
-* `$ python snarks_test.py 125550`
+* Run ganache-cli in a separate terminal
+* cd test
+* python snarks_test.py 125550
 
-125550 is the start block number used for testing. To change the same, change corresponding witness file  `test/test_verify_multiple_headers.witness` and re-generate witness and proof using `Makefile`
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE.md file for details
+125550 is the start block number used for testing. To change the same, change corresponding witness file  `test/test_verify_multiple_headers.witness` and re-generate witness and proof using `Makefile`.
 
 ## Acknowledgements
 
